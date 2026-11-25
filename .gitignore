@@ -1,0 +1,16 @@
+work/
+node_modules/
+.env
+.env.*
+.vercel/
+*.log
+outputs/*
+!outputs/index.html
+!outputs/workshop.css
+!outputs/workshop.js
+!outputs/dev-server.cjs
+!outputs/assets/
+outputs/assets/*
+!outputs/assets/interior.jpg
+!outputs/assets/living.jpg
+!outputs/assets/detail.jpg

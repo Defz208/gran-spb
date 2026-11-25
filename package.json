@@ -1,0 +1,9 @@
+{
+  "name": "gran-spb",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node outputs/dev-server.cjs",
+    "check": "node --check outputs/workshop.js && node --check outputs/dev-server.cjs"
+  }
+}
