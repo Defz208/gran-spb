@@ -227,6 +227,26 @@ serviceStage.addEventListener('keydown', event => {
   setActiveService(activeService + (event.key === 'ArrowRight' ? 1 : -1));
   serviceCards[activeService].focus();
 });
+let serviceTouch = null;
+let suppressServiceClickUntil = 0;
+serviceStage.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'mouse') return;
+  serviceTouch = { x: event.clientX, y: event.clientY };
+});
+serviceStage.addEventListener('pointerup', event => {
+  if (!serviceTouch) return;
+  const dx = event.clientX - serviceTouch.x;
+  const dy = event.clientY - serviceTouch.y;
+  serviceTouch = null;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    suppressServiceClickUntil = Date.now() + 400;
+    setActiveService(activeService + (dx < 0 ? 1 : -1));
+  }
+});
+serviceStage.addEventListener('pointercancel', () => { serviceTouch = null; });
+serviceStage.addEventListener('click', event => {
+  if (Date.now() < suppressServiceClickUntil) { event.preventDefault(); event.stopPropagation(); }
+}, true);
 setActiveService(0);
 serviceSection.classList.add('services-ready');
 
